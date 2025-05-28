@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avalon Setup</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>Avalon – Karakterválasztás</h1>
+
+  <label for="playerCount">Játékosok száma:</label>
+  <select id="playerCount">
+    <option value="5">5 játékos</option>
+    <option value="6">6 játékos</option>
+    <option value="7">7 játékos</option>
+    <option value="8">8 játékos</option>
+    <option value="9">9 játékos</option>
+    <option value="10">10 játékos</option>
+  </select>
+
+  <h2>Speciális karakterek (rosszak):</h2>
+  <div>
+    <input type="checkbox" id="morgana">
+    <label for="morgana">Morgana</label>
+  </div>
+  <div>
+    <input type="checkbox" id="mordred">
+    <label for="mordred">Mordred</label>
+  </div>
+  <div>
+    <input type="checkbox" id="oberon">
+    <label for="oberon">Oberon</label>
+  </div>
+
+  <h2>Speciális karakterek (jók):</h2>
+  <div>
+    <input type="checkbox" id="percival">
+    <label for="percival">Percival</label>
+  </div>
+
+  <br>
+  <button onclick="startGame()">Start játék</button>
+
+  <script src="script.js"></script>
+</body>
+</html>
