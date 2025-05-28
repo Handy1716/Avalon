@@ -249,13 +249,25 @@ function renderMissionBoard(results) {
   document.body.appendChild(table);
 
   // --- Gomb hozzáadása a táblázat alá ---
-  if (currentRoundIndex < 5 && results[currentRoundIndex] === null) {
-    const button = document.createElement("button");
-    button.textContent = `${currentRoundIndex + 1}. szavazás indítása`;
-    console.log(missionSizesByPlayerCount[playerCount][currentRoundIndex]);
-    button.onclick = () => votes();
-    document.body.appendChild(button);
-  }
+  // Ellenőrzés, hány sikeres és sikertelen küldetés van
+const successCount = results.filter(r => r === true).length;
+const failCount = results.filter(r => r === false).length;
+
+if (failCount >= 3) {
+  const message = document.createElement("p");
+  message.textContent = "A rosszak nyertek.";
+  document.body.appendChild(message);
+} else if (successCount >= 3) {
+  const message = document.createElement("p");
+  message.textContent = "A rosszak fedjék fel magukat és az orgyilkos tippelje meg Merlint!";
+  document.body.appendChild(message);
+} else if (currentRoundIndex < 5 && results[currentRoundIndex] === null) {
+  const button = document.createElement("button");
+  button.textContent = `${currentRoundIndex + 1}. szavazás indítása`;
+  button.onclick = () => votes();
+  document.body.appendChild(button);
+}
+
   //TODO: ez itt
 }
 let voteResults = []; // küldetésenként újraindítandó
