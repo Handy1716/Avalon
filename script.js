@@ -62,9 +62,13 @@ function startGame() {
   const maxOptionalVillains = maxVillains - 1; // Assassin mindig benne van
 
   if (selectedVillains.length > maxOptionalVillains) {
-    alert(`Túl sok speciális rossz karakter! Maximum ${maxOptionalVillains} választható a kötelező Assassin mellett.`);
-    return;
-  }
+  const alertDiv = document.getElementById("alert");
+  alertDiv.innerHTML = `
+    <div class="alert alert-danger" role="alert">
+      Túl sok speciális rossz karakter! Maximum ${maxOptionalVillains} választható a kötelező Assassin mellett.
+    </div>`;
+  return;
+}
 
 characters = []
   // Kötelező karakterek

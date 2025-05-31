@@ -11,6 +11,7 @@ body {
     min-height: 100vh;
     text-align: center;
   }
+  
 
   h1, h2 {
     margin: 20px 10px;
@@ -71,3 +72,4 @@ body {
   stroke-dasharray: 70.5096664428711 9999999;
   stroke-dashoffset: -262.2723388671875;
 }
+
