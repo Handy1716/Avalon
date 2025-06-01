@@ -45,6 +45,7 @@ function startGame() {
     <div class="alert alert-danger" role="alert">
       Túl sok speciális rossz karakter! Maximum ${maxOptionalVillains} választható a kötelező Assassin mellett.
     </div>`;
+    document.querySelectorAll('#morgana, #mordred, #oberon').forEach(cb => cb.checked = false);
     setTimeout(() => {
   alertDiv.innerHTML = '';
 }, 3000);

@@ -57,6 +57,11 @@ body {
   background-color: #ffe5e5;
   box-shadow: 0 0 10px rgba(204, 0, 0, 0.4);
 }
+#percivall input[type="checkbox"]:checked+label {
+  border-color: #1100ff;
+  background-color: #ffe5e5;
+  box-shadow: 0 0 10px rgba(0, 0, 204, 0.4);
+}
 
 /* Karakter képek */
 .character-option img {
