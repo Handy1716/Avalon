@@ -1,25 +1,3 @@
-//
-
-
-
-
-
-
-
-// TODO megcsinálni, hogy kiírja hány balsiker volt a küldetésben
-
-
-
-
-
-
-
-
-
-
-
-
-
 let characters = []; // globális, hogy elérhető legyen szerepfelfedéshez
 let currentPlayerIndex = 0;
 let playerCount = 0;
@@ -67,6 +45,9 @@ function startGame() {
     <div class="alert alert-danger" role="alert">
       Túl sok speciális rossz karakter! Maximum ${maxOptionalVillains} választható a kötelező Assassin mellett.
     </div>`;
+    setTimeout(() => {
+  alertDiv.innerHTML = '';
+}, 3000);
   return;
 }
 

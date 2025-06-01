@@ -1,51 +1,121 @@
 body {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-    background-color: #f2f2f2;
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    text-align: center;
-  }
-  
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background-color: #f2f2f2;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+}
 
-  h1, h2 {
-    margin: 20px 10px;
-  }
+/**/
+/* Alapstílus a karakterek megjelenítéséhez */
+.character-row {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
 
-  select, button, input[type="checkbox"] {
-    font-size: 1.2rem;
-    margin: 10px;
-  }
+.character-option {
+  position: relative;
+}
 
-  button {
-    padding: 15px 25px;
-    border: none;
-    border-radius: 8px;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-  }
+/* Rejtett checkbox */
+.character-option input[type="checkbox"] {
+  display: none;
+}
 
-  button:hover {
-    background-color: #0056b3;
-  }
+/* A "gomb" kinézetű label */
+.character-option label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: 0.3s;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
-  .form-group, .form-check {
-    margin: 10px 0;
-  }
+/* Hover effekt */
+.character-option label:hover {
+  border-color: #aaa;
+  background-color: #f0f0f0;
+}
 
-  @media (max-width: 600px) {
-    button, select {
-      width: 90%;
-      max-width: 300px;
-    }
+/* Kiválasztott (checked) kinézet */
+.character-option input[type="checkbox"]:checked+label {
+  border-color: #cc0000;
+  background-color: #ffe5e5;
+  box-shadow: 0 0 10px rgba(204, 0, 0, 0.4);
+}
+
+/* Karakter képek */
+.character-option img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+/* Karakter név */
+.character-option span {
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: center;
+}
+
+/**/
+
+h1,
+h2 {
+  margin: 20px 10px;
+}
+
+select,
+button,
+input[type="checkbox"] {
+  font-size: 1.2rem;
+  margin: 10px;
+}
+
+button {
+  padding: 15px 25px;
+  border: none;
+  border-radius: 8px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.form-group,
+.form-check {
+  margin: 10px 0;
+}
+
+@media (max-width: 600px) {
+
+  button,
+  select {
+    width: 90%;
+    max-width: 300px;
   }
-  .container {
+}
+
+.container {
   cursor: pointer;
 }
 
@@ -68,8 +138,7 @@ body {
   stroke-dashoffset: 0;
 }
 
-.container input:checked ~ svg .path {
+.container input:checked~svg .path {
   stroke-dasharray: 70.5096664428711 9999999;
   stroke-dashoffset: -262.2723388671875;
 }
-
