@@ -14,10 +14,11 @@ const missionSizesByPlayerCount = {
   10: [3, 4, 4, 5, 5]
 };
 class Character {
-  constructor(name, description, team) {
+  constructor(name, description, team, picture) {
     this.name = name;
     this.description = description;
     this.team = team;
+    this.picture = picture
   }
 }
 
@@ -54,23 +55,23 @@ function startGame() {
 
 characters = []
   // Kötelező karakterek
-  characters.push(new Character("Merlin", "Knows the villains", "Good"));
-  characters.push(new Character("Assassin", "Attempts to guess Merlin", "Villain"));
+  characters.push(new Character("Merlin", "Knows the villains", "Good", "pictures/merlin.png"));
+  characters.push(new Character("Assassin", "Attempts to guess Merlin", "Villain", "pictures/assasin.png"));
 
   // Speciális rossz karakterek
   if (document.getElementById("morgana").checked) {
-    characters.push(new Character("Morgana", "Appears as Merlin to Percival", "Villain"));
+    characters.push(new Character("Morgana", "Appears as Merlin to Percival", "Villain", "pictures/morgana.png"));
   }
   if (document.getElementById("mordred").checked) {
-    characters.push(new Character("Mordred", "Hidden from Merlin", "Villain"));
+    characters.push(new Character("Mordred", "Hidden from Merlin", "Villain", "pictures/mordred.png"));
   }
   if (document.getElementById("oberon").checked) {
-    characters.push(new Character("Oberon", "Unknown to fellow villains", "Villain"));
+    characters.push(new Character("Oberon", "Unknown to fellow villains", "Villain", "pictures/oberon.png"));
   }
 
   // Speciális jó karakterek
   if (document.getElementById("percival").checked) {
-    characters.push(new Character("Percival", "Knows who might be Merlin", "Good"));
+    characters.push(new Character("Percival", "Knows who might be Merlin", "Good", "pictures/percival.png"));
   }
 
   // Számolás: mennyi karakter van még hátra
@@ -85,11 +86,11 @@ characters = []
   const missingGoods = (playerCount - maxVillains) - currentGoods;
 
   for (let i = 0; i < missingVillains; i++) {
-    characters.push(new Character("Minion of Mordred", "A loyal minion of evil", "Villain"));
+    characters.push(new Character("Minion of Mordred", "A loyal minion of evil", "Villain", "pictures/minion.png"));
   }
 
   for (let i = 0; i < missingGoods; i++) {
-    characters.push(new Character("Loyal Servant of Arthur", "Faithful to Arthur, no special power", "Good"));
+    characters.push(new Character("Loyal Servant of Arthur", "Faithful to Arthur, no special power", "Good", "pictures/loyal_servant.png"));
   }
 
   // Keverés
@@ -133,21 +134,38 @@ function showCharacter(character) {
   const body = document.body;
   body.innerHTML = ''; // előző tartalom törlése
 
-  const roleTitle = document.createElement("h2");
-  roleTitle.textContent = `Te vagy: ${character.name}`;
-  body.appendChild(roleTitle);
+  const card = document.createElement("div");
+  card.className = "character-card";
 
-  const roleDesc = document.createElement("p");
-  roleDesc.textContent = `${character.description} (Csapat: ${character.team})`;
-  body.appendChild(roleDesc);
+  const img = document.createElement("img");
+  img.src = character.picture;
+  img.alt = character.name;
+  img.className = "character-image";
+  card.appendChild(img);
+
+  const name = document.createElement("h2");
+  name.textContent = character.name;
+  card.appendChild(name);
+
+  const team = document.createElement("p");
+  team.textContent = `Csapat: ${character.team}`;
+  team.className = `team-${character.team.toLowerCase()}`;
+  card.appendChild(team);
+
+  const desc = document.createElement("p");
+  desc.textContent = character.description;
+  card.appendChild(desc);
 
   const nextButton = document.createElement("button");
   nextButton.textContent = "Továbbadom a telefont";
+  nextButton.className = "next-button";
   nextButton.onclick = () => {
     currentPlayerIndex++;
     showNextCharacter();
   };
-  body.appendChild(nextButton);
+  card.appendChild(nextButton);
+
+  body.appendChild(card);
 }
 
 
