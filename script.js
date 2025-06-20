@@ -123,10 +123,15 @@ function showNextCharacter() {
   const container = document.createElement("div");
   container.className = "card-container";
 
+  // biztosítjuk, hogy az animáció ténylegesen lejátszódjon
+  requestAnimationFrame(() => {
+    container.classList.add("animate-in");
+  });
+
   const card = document.createElement("div");
   card.className = "card";
 
-  // FRONT
+  // FRONT oldal
   const front = document.createElement("div");
   front.className = "card-front";
 
@@ -141,7 +146,7 @@ function showNextCharacter() {
   };
   front.appendChild(revealButton);
 
-  // BACK
+  // BACK oldal
   const back = document.createElement("div");
   back.className = "card-back";
 
@@ -170,8 +175,13 @@ function showNextCharacter() {
   nextButton.textContent = "Továbbadom a telefont";
   nextButton.className = "next-button";
   nextButton.onclick = () => {
-    currentPlayerIndex++;
-    showNextCharacter();
+    container.classList.remove("animate-in");
+    container.classList.add("animate-out");
+
+    setTimeout(() => {
+      currentPlayerIndex++;
+      showNextCharacter();
+    }, 500);
   };
   back.appendChild(nextButton);
 
