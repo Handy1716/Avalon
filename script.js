@@ -181,7 +181,7 @@ function showNextCharacter() {
     setTimeout(() => {
       currentPlayerIndex++;
       showNextCharacter();
-    }, 500);
+    }, 400);
   };
   back.appendChild(nextButton);
 
