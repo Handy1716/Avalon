@@ -113,48 +113,58 @@ function shuffle(array) {
 
 function showNextCharacter() {
   const body = document.body;
-  body.innerHTML = ''; // előző tartalom törlése
+  body.innerHTML = '';
 
   if (currentPlayerIndex >= characters.length) {
     renderMissionBoard(results);
     return;
   }
 
+  const container = document.createElement("div");
+  container.className = "card-container";
+
+  const card = document.createElement("div");
+  card.className = "card";
+
+  // FRONT
+  const front = document.createElement("div");
+  front.className = "card-front";
+
   const instruction = document.createElement("h2");
   instruction.textContent = `Player ${currentPlayerIndex + 1}, készen állsz?`;
-  body.appendChild(instruction);
+  front.appendChild(instruction);
 
   const revealButton = document.createElement("button");
   revealButton.textContent = "Mutasd a szerepem";
-  revealButton.onclick = () => showCharacter(characters[currentPlayerIndex]);
-  body.appendChild(revealButton);
-}
+  revealButton.onclick = () => {
+    card.classList.add("flipped");
+  };
+  front.appendChild(revealButton);
 
-function showCharacter(character) {
-  const body = document.body;
-  body.innerHTML = ''; // előző tartalom törlése
+  // BACK
+  const back = document.createElement("div");
+  back.className = "card-back";
 
-  const card = document.createElement("div");
-  card.className = "character-card";
+  const character = characters[currentPlayerIndex];
 
   const img = document.createElement("img");
   img.src = character.picture;
   img.alt = character.name;
   img.className = "character-image";
-  card.appendChild(img);
+  back.appendChild(img);
 
   const name = document.createElement("h2");
   name.textContent = character.name;
-  card.appendChild(name);
+  back.appendChild(name);
 
   const team = document.createElement("p");
   team.textContent = `Csapat: ${character.team}`;
   team.className = `team-${character.team.toLowerCase()}`;
-  card.appendChild(team);
+  back.appendChild(team);
 
   const desc = document.createElement("p");
   desc.textContent = character.description;
-  card.appendChild(desc);
+  back.appendChild(desc);
 
   const nextButton = document.createElement("button");
   nextButton.textContent = "Továbbadom a telefont";
@@ -163,10 +173,15 @@ function showCharacter(character) {
     currentPlayerIndex++;
     showNextCharacter();
   };
-  card.appendChild(nextButton);
+  back.appendChild(nextButton);
 
-  body.appendChild(card);
+  // Összerakás
+  card.appendChild(front);
+  card.appendChild(back);
+  container.appendChild(card);
+  body.appendChild(container);
 }
+
 
 
 function renderMissionBoard(results) {
