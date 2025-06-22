@@ -41,19 +41,19 @@ function startGame() {
   const maxOptionalVillains = maxVillains - 1; // Assassin mindig benne van
 
   if (selectedVillains.length > maxOptionalVillains) {
-  const alertDiv = document.getElementById("alert");
-  alertDiv.innerHTML = `
+    const alertDiv = document.getElementById("alert");
+    alertDiv.innerHTML = `
     <div class="alert alert-danger" role="alert">
       Túl sok speciális rossz karakter! Maximum ${maxOptionalVillains} választható a kötelező Assassin mellett.
     </div>`;
     document.querySelectorAll('#morgana, #mordred, #oberon').forEach(cb => cb.checked = false);
     setTimeout(() => {
-  alertDiv.innerHTML = '';
-}, 3000);
-  return;
-}
+      alertDiv.innerHTML = '';
+    }, 3000);
+    return;
+  }
 
-characters = []
+  characters = []
   // Kötelező karakterek
   characters.push(new Character("Merlin", "Knows the villains", "Good", "pictures/merlin.png"));
   characters.push(new Character("Assassin", "Attempts to guess Merlin", "Villain", "pictures/assasin.png"));
@@ -233,23 +233,34 @@ function renderMissionBoard(results) {
 
   // --- Gomb hozzáadása a táblázat alá ---
   // Ellenőrzés, hány sikeres és sikertelen küldetés van
-const successCount = results.filter(r => r === true).length;
-const failCount = results.filter(r => r === false).length;
+  const successCount = results.filter(r => r === true).length;
+  const failCount = results.filter(r => r === false).length;
 
-if (failCount >= 3) {
-  const message = document.createElement("p");
-  message.textContent = "A rosszak nyertek.";
-  document.body.appendChild(message);
-} else if (successCount >= 3) {
-  const message = document.createElement("p");
-  message.textContent = "A rosszak fedjék fel magukat és az orgyilkos tippelje meg Merlint!";
-  document.body.appendChild(message);
-} else if (currentRoundIndex < 5 && results[currentRoundIndex] === null) {
-  const button = document.createElement("button");
-  button.textContent = `${currentRoundIndex + 1}. szavazás indítása`;
-  button.onclick = () => votes();
-  document.body.appendChild(button);
-}
+  if (failCount >= 3) {
+    const message = document.createElement("p");
+    message.textContent = "A rosszak nyertek.";
+    document.body.appendChild(message);
+  } else if (successCount >= 3) {
+    const message = document.createElement("p");
+    message.textContent = "A rosszak fedjék fel magukat és az orgyilkos tippelje meg Merlint!";
+    document.body.appendChild(message);
+  } else if (currentRoundIndex < 5 && results[currentRoundIndex] === null) {
+    const button = document.createElement("button");
+    button.textContent = `${currentRoundIndex + 1}. szavazás indítása`;
+    button.onclick = () => {
+  document.body.classList.add("fade-out");
+  setTimeout(() => {
+    document.body.classList.remove("fade-out");
+    document.body.classList.add("fade-in");
+    votes();
+    setTimeout(() => {
+      document.body.classList.remove("fade-in");
+    }, 300);
+  }, 300);
+};
+
+    document.body.appendChild(button);
+  }
 
   //TODO: ez itt
 }
@@ -269,9 +280,9 @@ function showVoteScreen() {
   if (currentRoundVoteIndex >= neededVotes) {
     let missionFailed = false;
 
-    if (falseCounter === 0 ||(falseCounter === 1 && currentRoundIndex === 3 && doubleFailRequired)) {
+    if (falseCounter === 0 || (falseCounter === 1 && currentRoundIndex === 3 && doubleFailRequired)) {
       missionFailed = false;
-    } else{
+    } else {
       missionFailed = true;
     }
 
@@ -300,8 +311,24 @@ function vote(voteResult) {
   voteResults.push(voteResult);
   if (!voteResult) falseCounter++;
   currentRoundVoteIndex++;
-  showVoteScreen();
+
+  // Fade out jelenlegi tartalom
+  document.body.classList.add("fade-out");
+
+  setTimeout(() => {
+    // Tartalom törlése és új betöltése (következő szavazó)
+    document.body.classList.remove("fade-out");
+    document.body.classList.add("fade-in");
+
+    showVoteScreen();
+
+    // Fade-in után visszavonjuk az osztályt, hogy újrahasználható legyen
+    setTimeout(() => {
+      document.body.classList.remove("fade-in");
+    }, 300);
+  }, 300); // ugyanannyi idő, mint a fade-out animáció
 }
+
 
 function showMissionResultScreen(missionFailed, falseCount) {
   document.body.innerHTML = '';
@@ -321,8 +348,17 @@ function showMissionResultScreen(missionFailed, falseCount) {
   const nextButton = document.createElement("button");
   nextButton.textContent = "Tovább";
   nextButton.onclick = () => {
+  document.body.classList.add("fade-out");
+  setTimeout(() => {
+    document.body.classList.remove("fade-out");
+    document.body.classList.add("fade-in");
     currentRoundIndex++;
     renderMissionBoard(results);
-  };
+    setTimeout(() => {
+      document.body.classList.remove("fade-in");
+    }, 300);
+  }, 300);
+};
+
   document.body.appendChild(nextButton);
 }

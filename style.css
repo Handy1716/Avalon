@@ -272,4 +272,29 @@ button {
 .card-container.animate-out {
   animation: slideOutDown 0.5s ease-in;
 }
-/**/
+/*Szavazások közti áttünés:*/
+.fade-out {
+  animation: fadeOut 0.3s ease forwards;
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
