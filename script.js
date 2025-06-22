@@ -193,52 +193,6 @@ function showNextCharacter() {
 }
 
 
-
-function renderMissionBoard(results) {
-  document.body.innerHTML = '';
-
-  const title = document.createElement("h2");
-  title.textContent = "Küldetésállapot";
-  document.body.appendChild(title);
-
-  const table = document.createElement("table");
-
-  const missionSizes = missionSizesByPlayerCount[playerCount];
-
-  for (let i = 5; i >= 1; i--) {
-    const row = document.createElement("tr");
-
-    // Bal oszlop: küldetésszám + hány fő kell
-    const missionLabel = document.createElement("td");
-
-    let extraNote = '';
-    if (i === 4 && doubleFailRequired) {
-      extraNote = ' – 2 elutasítás szükséges';
-    }
-
-    missionLabel.textContent = `Küldetés ${i}. (${missionSizes[i - 1]} fő)${extraNote}`;
-    row.appendChild(missionLabel);
-
-    // Jobb oszlop: eredmény (true = ✅, false = ❌, null = üres)
-    const missionStatus = document.createElement("td");
-
-    const result = results[i - 1]; // i: 5 → 1, index = i-1
-    if (result === true) {
-      missionStatus.textContent = "✅";
-    } else if (result === false) {
-      missionStatus.textContent = "❌";
-    } else {
-      missionStatus.textContent = "";
-    }
-
-    row.appendChild(missionStatus);
-    table.appendChild(row);
-  }
-
-  document.body.appendChild(table);
-}
-
-
 function renderMissionBoard(results) {
   document.body.innerHTML = '';
 
