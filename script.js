@@ -294,7 +294,7 @@ function showVoteScreen() {
   // Megjelenítés egy szavazónak
   document.body.innerHTML = ``;
   const toptext = document.createElement("h2");
-  toptext.innerHTML = `Küldetés ${currentRoundIndex + 1} szavazása – Játékos ${currentRoundVoteIndex + 1}`;
+  toptext.innerHTML = `${currentRoundIndex + 1} Küldetés<br>Játékos ${currentRoundVoteIndex + 1}`;
   document.body.appendChild(toptext);
   const succes = document.createElement("button");
   succes.textContent = "Siker";
